@@ -24,3 +24,10 @@ touch /home/${USERNAME}/lock.file
 PERM=$(stat -c '%U' /home/${USERNAME}/.config)
 [[ "${PERM}" != "${USERNAME}" ]] && \
         chown -R ${USERNAME}:${USERNAME} /home/${USERNAME}
+
+
+# set random password for abc user to prevent it from connecting
+
+$RANDOM_PASS=`tr -dc A-Za-z0-9 </dev/urandom | head -c 13 ; echo ''`
+
+echo abc:${RANDOM_PASS} | chpasswd
