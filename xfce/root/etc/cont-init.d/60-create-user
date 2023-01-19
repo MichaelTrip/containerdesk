@@ -1,0 +1,27 @@
+#!/usr/bin/with-contenv bash
+
+
+set -x
+
+echo "**** create ${USERNAME} user and make our folders ****" && \
+useradd -u 912 -U -d /home/${USERNAME} -s /bin/bash ${USERNAME}
+usermod -G users,wheel ${USERNAME}
+echo "${USERNAME}:${USERNAME}" | chpasswd
+mkdir -p /home/${USERNAME}
+chown -R ${USERNAME}:${USERNAME} /home/${USERNAME}
+
+chmod 755 /etc
+chmod 755 /etc/xrdp
+chmod 755 /etc/xrdp/sesman.ini
+touch /home/${USERNAME}/lock.file
+
+# default file copies first run
+[[ ! -d /home/${USERNAME}/.config ]] && \
+	mkdir -p /home/${USERNAME}/.config && \
+	cp /defaults/startwm.sh /home/${USERNAME}/startwm.sh
+    chmod +x /home/${USERNAME}/startwm.sh
+    chown -R ${USERNAME}:${USERAME} /home/${USERNAME}
+# permissions
+PERM=$(stat -c '%U' /home/${USERNAME}/.config)
+[[ "${PERM}" != "${USERNAME}" ]] && \
+        chown -R ${USERNAME}:${USERNAME} /config
