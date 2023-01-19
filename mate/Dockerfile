@@ -18,6 +18,10 @@ RUN \
     libreoffice \
     pluma \
     neofetch \
+    adwaita-gtk2-theme \
+    adwaita-icon-theme \
+    papirus-icon-theme \
+    thunderbird \
     code && \
   echo "**** cleanup ****" && \
   dnf autoremove -y && \
