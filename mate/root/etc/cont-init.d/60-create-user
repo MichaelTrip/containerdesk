@@ -31,3 +31,4 @@ PERM=$(stat -c '%U' /home/${USERNAME}/.config)
 $RANDOM_PASS=`tr -dc A-Za-z0-9 </dev/urandom | head -c 13 ; echo ''`
 
 echo abc:${RANDOM_PASS} | chpasswd
+usermod -s /bin/false abc
