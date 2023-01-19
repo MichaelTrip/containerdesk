@@ -1,12 +1,10 @@
 #!/usr/bin/with-contenv bash
 
 
-set -x
-
 echo "**** create ${USERNAME} user and make our folders ****" && \
 useradd -u 912 -U -d /home/${USERNAME} -s /bin/bash ${USERNAME}
 usermod -G users,wheel ${USERNAME}
-echo "${USERNAME}:${USERNAME}" | chpasswd
+echo "${USERNAME}:${PASSWORD}" | chpasswd
 mkdir -p /home/${USERNAME}
 chown -R ${USERNAME}:${USERNAME} /home/${USERNAME}
 
