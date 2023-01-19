@@ -13,6 +13,7 @@ chown -R ${USERNAME}:${USERNAME} /home/${USERNAME}
 chmod 755 /etc
 chmod 755 /etc/xrdp
 chmod 755 /etc/xrdp/sesman.ini
+
 touch /home/${USERNAME}/lock.file
 
 # default file copies first run
@@ -24,4 +25,4 @@ touch /home/${USERNAME}/lock.file
 # permissions
 PERM=$(stat -c '%U' /home/${USERNAME}/.config)
 [[ "${PERM}" != "${USERNAME}" ]] && \
-        chown -R ${USERNAME}:${USERNAME} /config
+        chown -R ${USERNAME}:${USERNAME} /home/${USERNAME}
