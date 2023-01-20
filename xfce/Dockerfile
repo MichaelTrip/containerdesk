@@ -22,7 +22,6 @@ RUN \
     adwaita-icon-theme \
     papirus-icon-theme \
     thunderbird \
-    seamonkey \
     code && \
   echo "**** cleanup ****" && \
   dnf autoremove -y && \
