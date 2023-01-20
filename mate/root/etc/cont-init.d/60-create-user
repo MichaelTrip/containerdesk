@@ -14,12 +14,15 @@ chmod 755 /etc/xrdp/sesman.ini
 
 touch /home/${USERNAME}/lock.file
 
-# default file copies first run
+# create .config dir
 [[ ! -d /home/${USERNAME}/.config ]] && \
-	mkdir -p /home/${USERNAME}/.config && \
-	cp /defaults/startwm.sh /home/${USERNAME}/startwm.sh
-    chmod +x /home/${USERNAME}/startwm.sh
-    chown -R ${USERNAME}:${USERAME} /home/${USERNAME}
+	mkdir -p /home/${USERNAME}/.config
+
+
+cp /defaults/startwm.sh /home/${USERNAME}/startwm.sh
+chmod +x /home/${USERNAME}/startwm.sh
+chown -R ${USERNAME}:${USERAME} /home/${USERNAME}
+
 # permissions
 PERM=$(stat -c '%U' /home/${USERNAME}/.config)
 [[ "${PERM}" != "${USERNAME}" ]] && \
