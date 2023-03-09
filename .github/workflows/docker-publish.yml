@@ -50,7 +50,7 @@ jobs:
           images: ${{ matrix.image }}
 
       - name: Build and push Docker image Containerdesk
-        uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a
+        uses: docker/build-push-action@v4
         with:
           context: ${{ matrix.context }}
           platforms: linux/arm64,linux/amd64
