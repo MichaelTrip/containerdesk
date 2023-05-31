@@ -6,6 +6,7 @@ ARG VERSION
 LABEL build_version="based on Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
 LABEL maintainer="Michael Trip"
 
+COPY /root /
 RUN \
   echo "**** install packages ****" && \
   rpm --import https://packages.microsoft.com/keys/microsoft.asc && \
@@ -42,7 +43,6 @@ RUN \
 RUN dnf -y remove xfce4-power-manager && rm -rf /etc/xdg/autostart/xfce-polkit.desktop && dnf clean all
 
 # add local files
-COPY /root /
 
 # ports and volumes
 EXPOSE 3389
