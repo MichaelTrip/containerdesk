@@ -25,17 +25,29 @@ RUN \
     thunderbird \
     firefox \
     code && \
-    echo "**** application tweaks ****" && \
-    sed -i \
-      's#^Exec=.*#Exec=/usr/local/bin/wrapped-chromium#g' \
-      /usr/share/applications/chromium-browser.desktop && \
-    mv /usr/bin/exo-open /usr/bin/exo-open-real && \
-    echo "**** cleanup ****" && \
-    dnf autoremove -y && \
-    dnf clean all && \
-    rm -rf \
-      /config/.cache \
-      /tmp/*
+  echo "**** application tweaks ****" && \
+  sed -i \
+    's#^Exec=.*#Exec=/usr/local/bin/wrapped-chromium#g' \
+    /usr/share/applications/chromium-browser.desktop && \
+  echo "**** mate tweaks ****" && \
+  rm -f \
+    /etc/xdg/autostart/at-spi-dbus-bus.desktop \
+    /etc/xdg/autostart/gnome-keyring-pkcs11.desktop \
+    /etc/xdg/autostart/gnome-keyring-secrets.desktop \
+    /etc/xdg/autostart/gnome-keyring-ssh.desktop \
+    /etc/xdg/autostart/mate-power-manager.desktop \
+    /etc/xdg/autostart/mate-screensaver.desktop \
+    /etc/xdg/autostart/polkit-mate-authentication-agent-1.desktop && \
+  sed -i \
+    '/compositing-manager/{n;s/.*/      <default>false<\/default>/}' \
+    /usr/share/glib-2.0/schemas/org.mate.marco.gschema.xml && \
+    glib-compile-schemas /usr/share/glib-2.0/schemas/ && \
+  echo "**** cleanup ****" && \
+  dnf autoremove -y && \
+  dnf clean all && \
+  rm -rf \
+    /config/.cache \
+    /tmp/*
 
 
 # add local files
