@@ -22,6 +22,7 @@ RUN \
     adwaita-icon-theme \
     papirus-icon-theme \
     thunderbird \
+    firefox \
     code && \
   echo "**** cleanup ****" && \
   dnf autoremove -y && \
