@@ -6,7 +6,6 @@ ARG VERSION
 LABEL build_version="based on Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
 LABEL maintainer="Michael Trip"
 
-COPY /root /
 RUN \
   echo "**** install packages ****" && \
   rpm --import https://packages.microsoft.com/keys/microsoft.asc && \
@@ -29,7 +28,7 @@ RUN \
     sed -i \
       's#^Exec=.*#Exec=/usr/local/bin/wrapped-chromium#g' \
       /usr/share/applications/chromium-browser.desktop && \
-    cp /usr/bin/exo-open /usr/bin/exo-open-real && \
+    mv /usr/bin/exo-open /usr/bin/exo-open-real && \
     echo "**** xfce tweaks ****" && \
     rm -f \
       /etc/xdg/autostart/xfce-polkit.desktop && \
@@ -41,6 +40,8 @@ RUN \
       /tmp/*
 # Remove this due to errors
 RUN dnf -y remove xfce4-power-manager && rm -rf /etc/xdg/autostart/xfce-polkit.desktop && dnf clean all
+
+COPY /root /
 
 # add local files
 
