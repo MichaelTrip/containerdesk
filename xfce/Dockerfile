@@ -13,6 +13,7 @@ RUN \
   dnf install -y --setopt=install_weak_deps=False --best \
     terminator \
     tilix \
+    chromium \
     kubernetes-client \
     libreoffice \
     pluma \
@@ -23,12 +24,20 @@ RUN \
     thunderbird \
     firefox \
     code && \
-  echo "**** cleanup ****" && \
-  dnf autoremove -y && \
-  dnf clean all && \
-  rm -rf \
-    /tmp/*
-
+    echo "**** application tweaks ****" && \
+    sed -i \
+      's#^Exec=.*#Exec=/usr/local/bin/wrapped-chromium#g' \
+      /usr/share/applications/chromium-browser.desktop && \
+    mv /usr/bin/exo-open /usr/bin/exo-open-real && \
+    echo "**** xfce tweaks ****" && \
+    rm -f \
+      /etc/xdg/autostart/xfce-polkit.desktop && \
+    echo "**** cleanup ****" && \
+    dnf autoremove -y && \
+    dnf clean all && \
+    rm -rf \
+      /config/.cache \
+      /tmp/*
 # Remove this due to errors
 RUN dnf -y remove xfce4-power-manager && rm -rf /etc/xdg/autostart/xfce-polkit.desktop && dnf clean all
 
