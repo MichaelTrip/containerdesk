@@ -13,7 +13,6 @@ RUN \
   curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | gpg --dearmor -o /etc/apt/keyrings/kubernetes-archive-keyring.gpg && \
   echo "deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | tee /etc/apt/sources.list.d/kubernetes.list && \
   wget https://github.com/MuhammedKalkan/OpenLens/releases/download/v6.5.2.286/OpenLens-6.5.2.286.amd64.deb &&\
-  dpkg -i OpenLens-6.5.2.286.amd64.deb && \
   echo "**** Installing vscode stuff ***" && \
   wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg && \
   cp packages.microsoft.gpg /etc/apt/keyrings && \
@@ -30,7 +29,9 @@ RUN \
     tilix \
     terminator \
     kubectl \
-    code && \
+    code 
+    xdg-utils && \
+  dpkg -i OpenLens-6.5.2.286.amd64.deb && \
   echo "**** cleanup ****" && \
   apt-get autoclean && \
   rm -rf \
