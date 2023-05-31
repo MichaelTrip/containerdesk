@@ -30,9 +30,6 @@ RUN \
       's#^Exec=.*#Exec=/usr/local/bin/wrapped-chromium#g' \
       /usr/share/applications/chromium-browser.desktop && \
     mv /usr/bin/exo-open /usr/bin/exo-open-real && \
-    echo "**** xfce tweaks ****" && \
-    rm -f \
-      /etc/xdg/autostart/xfce-polkit.desktop && \
     echo "**** cleanup ****" && \
     dnf autoremove -y && \
     dnf clean all && \
