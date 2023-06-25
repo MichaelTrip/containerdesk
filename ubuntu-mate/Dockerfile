@@ -29,7 +29,7 @@ RUN \
     tilix \
     terminator \
     kubectl \
-    code 
+    code \
     xdg-utils && \
   dpkg -i OpenLens-6.5.2.286.amd64.deb && \
   echo "**** cleanup ****" && \
