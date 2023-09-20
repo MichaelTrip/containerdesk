@@ -36,6 +36,7 @@ RUN dnf -y remove xfce4-power-manager && rm -rf /etc/xdg/autostart/xfce-polkit.d
 # add local files
 COPY /root /
 
+
 # ports and volumes
 EXPOSE 3389
 VOLUME /home
