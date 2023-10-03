@@ -9,14 +9,22 @@ WORKDIR /tmp
 
 
 RUN \
+    dnf install -y wget && \
+    if [ "$BUILDARCH" = "amd64" ]; then \
+        wget -O /tmp/openlens.rpm https://github.com/MuhammedKalkan/OpenLens/releases/download/v6.5.2-366/OpenLens-6.5.2-366.x86_64.rpm; \
+    elif [ "$BUILDARCH" = "arm64" ]; then \
+        wget -O /tmp/openlens.rpm https://github.com/MuhammedKalkan/OpenLens/releases/download/v6.5.2-366/OpenLens-6.5.2-366.aarch64.rpm; \
+    else \
+        echo "Unsupported architecture: $BUILDARCH"; \
+        exit 1; \
+    fi
+
+RUN \
   echo "**** install packages ****" && \
   rpm --import https://packages.microsoft.com/keys/microsoft.asc && \
   echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo && \
-  dnf install -y wget && \
-  echo "Install and download OpenLens" && \
-  if [ "$TARGETARCH" = "amd64" ]; then wget https://github.com/MuhammedKalkan/OpenLens/releases/download/v6.5.2-366/OpenLens-6.5.2-366.x86_64.rpm; elif [ "$TARGETARCH" = "arm64" ]; then wget -O https://github.com/MuhammedKalkan/OpenLens/releases/download/v6.5.2-366/OpenLens-6.5.2-366.aarch64.rpm; else "echo unspoorted"; exit 1; fi && \
   echo "Install and download k9s" && \
-  wget https://github.com/derailed/k9s/releases/download/v0.27.4/k9s_Linux_$TARGETARCH.tar.gz && \
+  wget -o /tmp/k9s.tar.gz https://github.com/derailed/k9s/releases/download/v0.27.4/k9s_Linux_$BUILDARCH.tar.gz && \
   dnf install -y --setopt=install_weak_deps=False --best \
     terminator \
     tilix \
@@ -30,8 +38,8 @@ RUN \
     thunderbird \
     firefox \
     code && \
-  if [ "$TARGETARCH" = "amd64" ]; dnf localinstall -y /tmp/OpenLens-6.5.2-366.aarch64.rpm; elif [ "$TARGETARCH" = "arm64" ]; then dnf localinstall -y /tmp/OpenLens-6.5.2-366.aarch64.rpm; fi && \
-  tar -zxvf /tmp/k9s_Linux_$TARGETARCH.tar.gz && \
+  dnf localinstall -y /tmp/openlens.rpm && \
+  tar -zxvf /tmp/k9s.tar.gz && \
   mv /tmp/k9s /usr/local/bin && \
     echo "**** cleanup ****" && \
     dnf autoremove -y && \
