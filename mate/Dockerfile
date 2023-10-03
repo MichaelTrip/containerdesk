@@ -3,21 +3,21 @@ FROM docker.io/linuxserver/rdesktop:fedora-mate
 # set version label
 ARG BUILD_DATE
 ARG VERSION
-# ARG BUILDARCH
-# ARG TARGETARCH
+ARG TARGETARCH
 
 LABEL build_version="based on Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
 LABEL maintainer="Michael Trip"
 WORKDIR /tmp
 
-RUN dnf install -y wget && \
+RUN dnf install -y wget curl
+RUN \
       case ${TARGETARCH} in \
             "amd64")  DOWNLOAD_ARCH=x86_64  ;; \
             "arm64")  DOWNLOAD_ARCH=aarch64  ;; \
         esac \
-        && wget -O /tmp/openlens.rpm https://github.com/MuhammedKalkan/OpenLens/releases/download/v6.5.2-366/OpenLens-6.5.2-366.${DOWNLOAD_ARCH}.rpm
+        && curl -L https://github.com/MuhammedKalkan/OpenLens/releases/download/v6.5.2-366/OpenLens-6.5.2-366.${DOWNLOAD_ARCH}.rpm --output /tmp/openlens.rpm
 
-RUN wget -o /tmp/k9s.tar.gz https://github.com/derailed/k9s/releases/download/v0.27.4/k9s_Linux_$TARGETARCH.tar.gz
+RUN curl -L https://github.com/derailed/k9s/releases/download/v0.27.4/k9s_Linux_${TARGETARCH}.tar.gz --output /tmp/k9s.tar.gz
 
 RUN \
   echo "**** install packages ****" && \
