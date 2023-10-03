@@ -28,9 +28,9 @@ RUN \
     thunderbird \
     firefox \
     code && \
-  dnf localinstall -y OpenLens-6.5.2-366.x86_64.rpm && \
-  tar -zxvf k9s_Linux_amd64.tar.gz && \
-  mv k9s /usr/local/bin && \
+  dnf localinstall -y /tmp/OpenLens-6.5.2-366.x86_64.rpm && \
+  tar -zxvf /tmp/k9s_Linux_amd64.tar.gz && \
+  mv /tmp/k9s /usr/local/bin && \
   echo "**** cleanup ****" && \
   dnf autoremove -y && \
   dnf clean all && \
