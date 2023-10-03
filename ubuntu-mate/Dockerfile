@@ -34,7 +34,7 @@ RUN \
     kubectl \
     code \
     xdg-utils && \
-  dpkg -i OpenLens-6.5.2.286.amd64.deb && \
+  dpkg -i /tmp/OpenLens-6.5.2.286.amd64.deb && \
   tar -zxvf k9s_Linux_amd64.tar.gz && \
   mv k9s /usr/local/bin && \
   echo "**** cleanup ****" && \
