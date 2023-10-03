@@ -12,7 +12,7 @@ WORKDIR /tmp
 RUN dnf install -y wget
 RUN \
       case ${TARGETARCH} in \
-            "amd64")  DOWNLOAD_ARCH=amd64  ;; \
+            "amd64")  DOWNLOAD_ARCH=x86_64  ;; \
             "arm64")  DOWNLOAD_ARCH=aarch64  ;; \
         esac \
         && wget -O /tmp/openlens.rpm https://github.com/MuhammedKalkan/OpenLens/releases/download/v6.5.2-366/OpenLens-6.5.2-366.${DOWNLOAD_ARCH}.rpm
