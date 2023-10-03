@@ -2,6 +2,7 @@ FROM docker.io/linuxserver/rdesktop:fedora-xfce
 
 # set version label
 ARG BUILDARCH
+ARG TARGETARCH
 ARG BUILD_DATE
 ARG VERSION
 LABEL build_version="based on Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
@@ -11,12 +12,12 @@ WORKDIR /tmp
 
 RUN \
     dnf install -y wget && \
-    if [ "$BUILDARCH" = "amd64" ]; then \
+    if [ "$TARGETARCH" = "amd64" ]; then \
         wget -O /tmp/openlens.rpm https://github.com/MuhammedKalkan/OpenLens/releases/download/v6.5.2-366/OpenLens-6.5.2-366.x86_64.rpm; \
-    elif [ "$BUILDARCH" = "arm64" ]; then \
+    elif [ "$TARGETARCH" = "arm64" ]; then \
         wget -O /tmp/openlens.rpm https://github.com/MuhammedKalkan/OpenLens/releases/download/v6.5.2-366/OpenLens-6.5.2-366.aarch64.rpm; \
     else \
-        echo "Unsupported architecture: $BUILDARCH"; \
+        echo "Unsupported architecture: $TARGETARCH"; \
         exit 1; \
     fi
 
@@ -25,7 +26,7 @@ RUN \
   rpm --import https://packages.microsoft.com/keys/microsoft.asc && \
   echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo && \
   echo "Install and download k9s" && \
-  wget -o /tmp/k9s.tar.gz https://github.com/derailed/k9s/releases/download/v0.27.4/k9s_Linux_$BUILDARCH.tar.gz && \
+  wget -o /tmp/k9s.tar.gz https://github.com/derailed/k9s/releases/download/v0.27.4/k9s_Linux_$TARGETARCH.tar.gz && \
   dnf install -y --setopt=install_weak_deps=False --best \
     terminator \
     tilix \
