@@ -47,8 +47,6 @@ RUN \
     /config/.cache \
     /tmp/*
 
-
-
 # add local files
 COPY /root /
 
