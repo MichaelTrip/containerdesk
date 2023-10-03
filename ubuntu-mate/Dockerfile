@@ -1,15 +1,15 @@
 FROM ghcr.io/linuxserver/rdesktop:ubuntu-mate
 # set version label
 ARG BUILD_DATE
-ARG BUILDARCH
-ARG TARGETARCH
+# ARG BUILDARCH
+# ARG TARGETARCH
 ARG VERSION
 LABEL build_version="based on Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
 LABEL maintainer="Michael Trip"
 WORKDIR /tmp
 RUN DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y wget
-RUN wget -o /tmp/openlens.deb https://github.com/MuhammedKalkan/OpenLens/releases/download/v6.5.2-366/OpenLens-6.5.2-366.$BUILDARCH.deb
-RUN wget -o /tmp/k9s.tar.gz https://github.com/derailed/k9s/releases/download/v0.27.4/k9s_Linux_$BUILDARCH.tar.gz
+RUN wget -o /tmp/openlens.deb https://github.com/MuhammedKalkan/OpenLens/releases/download/v6.5.2-366/OpenLens-6.5.2-366.$TARGETARCH.deb
+RUN wget -o /tmp/k9s.tar.gz https://github.com/derailed/k9s/releases/download/v0.27.4/k9s_Linux_$TARGETARCH.tar.gz
 RUN \
   echo "**** install packages ****" && \
   apt update && \
