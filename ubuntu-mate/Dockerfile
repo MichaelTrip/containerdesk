@@ -2,6 +2,7 @@ FROM ghcr.io/linuxserver/rdesktop:ubuntu-mate
 # set version label
 ARG BUILD_DATE
 ARG BUILDARCH
+ARG TARGETARCH
 ARG VERSION
 LABEL build_version="based on Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
 LABEL maintainer="Michael Trip"

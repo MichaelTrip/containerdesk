@@ -4,21 +4,19 @@ FROM docker.io/linuxserver/rdesktop:fedora-mate
 ARG BUILD_DATE
 ARG VERSION
 ARG BUILDARCH
+ARG TARGETARCH
 
 LABEL build_version="based on Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
 LABEL maintainer="Michael Trip"
 WORKDIR /tmp
 
-RUN \
-    dnf install -y wget && \
-    if [ "$BUILDARCH" = "amd64" ]; then \
-        wget -O /tmp/openlens.rpm https://github.com/MuhammedKalkan/OpenLens/releases/download/v6.5.2-366/OpenLens-6.5.2-366.x86_64.rpm; \
-    elif [ "$BUILDARCH" = "arm64" ]; then \
-        wget -O /tmp/openlens.rpm https://github.com/MuhammedKalkan/OpenLens/releases/download/v6.5.2-366/OpenLens-6.5.2-366.aarch64.rpm; \
-    else \
-        echo "Unsupported architecture: $BUILDARCH"; \
-        exit 1; \
-    fi
+RUN dnf install -y wget && \
+      case ${TARGETARCH} in \
+            "amd64")  DOWNLOAD_ARCH=amd64  ;; \
+            "arm64")  DOWNLOAD_ARCH=aarch64  ;; \
+        esac \
+        && wget -O /tmp/openlens.rpm https://github.com/MuhammedKalkan/OpenLens/releases/download/v6.5.2-366/OpenLens-6.5.2-366.${DOWNLOAD_ARCH}.rpm
+
 
 
 RUN \
