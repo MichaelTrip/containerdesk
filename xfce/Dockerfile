@@ -35,7 +35,7 @@ RUN \
     thunderbird \
     firefox \
     code && \
-  dnf localinstall -y /tmp/openlens.rpm && \
+#  dnf localinstall -y /tmp/openlens.rpm && \
   tar -zxvf /tmp/k9s.tar.gz && \
   mv /tmp/k9s /usr/local/bin && \
     echo "**** cleanup ****" && \
