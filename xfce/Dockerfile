@@ -9,9 +9,8 @@ LABEL build_version="based on Linuxserver.io version:- ${VERSION} Build-date:- $
 LABEL maintainer="Michael Trip"
 WORKDIR /tmp
 
-
+RUN dnf install -y wget
 RUN \
-    dnf install -y wget && \
     if [ "${TARGETARCH}" == "amd64" ]; then \
         wget -O /tmp/openlens.rpm https://github.com/MuhammedKalkan/OpenLens/releases/download/v6.5.2-366/OpenLens-6.5.2-366.x86_64.rpm; \
     elif [ "${TARGETARCH}" == "arm64" ]; then \
