@@ -1,4 +1,4 @@
-name: Ubuntu MATE build
+name: Fedora MATE build aarch64
 
 # This workflow uses actions that are not certified by GitHub.
 # They are provided by a third-party and are governed by
@@ -11,8 +11,8 @@ on:
   push:
     branches: [ "main" ]
     paths:
-      - "ubuntu-mate/Dockerfile"
-      - ".github/workflows/ubuntu-mate-build.yml"
+      - "mate/Dockerfile.aarch64"
+      - ".github/workflows/fedora-mate-build-aarch64.yml"
     # Publish semver tags as releases.
     tags: [ 'v*.*.*' ]
   pull_request:
@@ -22,7 +22,7 @@ env:
   # Use docker.io for Docker Hub if empty
   REGISTRY: ghcr.io
   # github.repository as <account>/<repo>
-  IMAGE_NAME: ${{ github.repository }}/containerdesk-ubuntu-mate
+  IMAGE_NAME: ${{ github.repository }}/containerdesk-mate-aarch64
 
 
 jobs:
@@ -70,9 +70,9 @@ jobs:
         id: build-and-push
         uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a
         with:
-          context: ./ubuntu-mate
-          file: ./ubuntu-mate/Dockerfile
-          platforms: linux/amd64
+          context: ./mate
+          file: ./mate/Dockerfile.aarch64
+          platforms: linux/arm64
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}

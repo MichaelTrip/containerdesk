@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/rdesktop:fedora-mate
+FROM ghcr.io/linuxserver/rdesktop:arm64v8-fedora-mate
 
 # set version label
 ARG BUILD_DATE

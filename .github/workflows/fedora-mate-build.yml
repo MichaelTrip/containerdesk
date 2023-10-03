@@ -10,6 +10,9 @@ on:
     - cron: '39 15 * * *'
   push:
     branches: [ "main" ]
+    paths:
+      - "mate/Dockerfile"
+      - ".github/workflows/fedora-mate-build.yml"
     # Publish semver tags as releases.
     tags: [ 'v*.*.*' ]
   pull_request:
