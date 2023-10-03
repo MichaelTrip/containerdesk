@@ -7,6 +7,7 @@ ARG VERSION
 LABEL build_version="based on Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
 LABEL maintainer="Michael Trip"
 WORKDIR /tmp
+RUN apt install -y wget
 RUN   wget -o /tmp/openlens.deb https://github.com/MuhammedKalkan/OpenLens/releases/download/v6.5.2-366/OpenLens-6.5.2-366.$BUILDARCH.deb
 RUN \
   echo "**** install packages ****" && \
