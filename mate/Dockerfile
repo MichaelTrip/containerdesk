@@ -26,6 +26,10 @@ RUN \
   dnf install -y --setopt=install_weak_deps=False --best \
     terminator \
     tilix \
+    caja \
+    caja-sendto \
+    caja-actions \
+    caja-schemas \
     kubernetes-client \
     libreoffice \
     pluma \
