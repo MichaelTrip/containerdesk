@@ -28,10 +28,6 @@ RUN \
   apt-get install --no-install-recommends -y \
     vim \
     neofetch \
-    caja \
-    caja-sendto \
-    caja-actions \
-    caja-schemas \
     libreoffice \
     thunderbird \
     pluma \
