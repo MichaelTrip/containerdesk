@@ -24,7 +24,6 @@ env:
   # github.repository as <account>/<repo>
   IMAGE_NAME: ${{ github.repository }}/containerdesk-xfce
 
-
 jobs:
 
   # build_mate:
