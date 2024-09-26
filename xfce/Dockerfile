@@ -1,4 +1,4 @@
-FROM docker.io/linuxserver/rdesktop:fedora-xfce
+FROM ghcr.io/linuxserver/rdesktop:fedora-xfce
 
 # set version label
 
