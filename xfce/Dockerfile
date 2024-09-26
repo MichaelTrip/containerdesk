@@ -18,6 +18,7 @@ RUN \
         && curl -L https://github.com/MuhammedKalkan/OpenLens/releases/download/v6.5.2-366/OpenLens-6.5.2-366.${DOWNLOAD_ARCH}.rpm --output /tmp/openlens.rpm
 
 RUN curl -L https://github.com/derailed/k9s/releases/download/v0.27.4/k9s_Linux_${TARGETARCH}.tar.gz --output /tmp/k9s.tar.gz
+RUN curl -L https://github.com/getseabird/seabird/releases/download/${SEABIRD_VERSION}/seabird_linux_${TARGETARCH}.tar.gz --output /tmp/seabird.tar.gz
 RUN \
   echo "**** install packages ****" && \
   rpm --import https://packages.microsoft.com/keys/microsoft.asc && \
@@ -37,7 +38,9 @@ RUN \
     code && \
   dnf localinstall -y /tmp/openlens.rpm && \
   tar -zxvf /tmp/k9s.tar.gz && \
+  tar -zxvf /tmp/seabird.tar.gz && \
   mv /tmp/k9s /usr/local/bin && \
+  mv /tmp/seabird /usr/local/bin && \
     echo "**** cleanup ****" && \
     dnf autoremove -y && \
     dnf clean all && \
