@@ -43,6 +43,7 @@ RUN \
     code && \
   dnf localinstall -y /tmp/openlens.rpm && \
   tar -zxvf /tmp/k9s.tar.gz && \
+  tar -zxvf /tmp/seabird.tar.gz && \
   mv /tmp/k9s /usr/local/bin && \
   mv /tmp/seabird /usr/local/bin && \
   echo "**** cleanup ****" && \
