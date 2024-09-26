@@ -4,20 +4,18 @@ ARG BUILD_DATE
 # ARG BUILDARCH
 ARG TARGETARCH
 ARG VERSION
+ARG KUBECTL_VERSION=1.30.2
 LABEL build_version="based on Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
 LABEL maintainer="Michael Trip"
 WORKDIR /tmp
 RUN DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y curl wget
 RUN curl -L https://github.com/MuhammedKalkan/OpenLens/releases/download/v6.5.2-366/OpenLens-6.5.2-366.${TARGETARCH}.deb --output /tmp/openlens.deb
 RUN curl -L https://github.com/derailed/k9s/releases/download/v0.27.4/k9s_Linux_${TARGETARCH}.tar.gz --output /tmp/k9s.tar.gz
-
+RUN curl -l https://storage.googleapis.com/kubernetes-release/release/v${KUBECTL_VERSION}/bin/linux/${TARGETARCH}/kubectl --output /usr/local/bin/kubectl && chmod +x /usr/local/bin/kubectl
 RUN \
   echo "**** install packages ****" && \
   apt update && \
   DEBIAN_FRONTEND=noninteractive apt-get install wget -y && \
-  echo "**** adding kubectl stuff ****" && \
-  curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | gpg --dearmor -o /etc/apt/keyrings/kubernetes-archive-keyring.gpg && \
-  echo "deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | tee /etc/apt/sources.list.d/kubernetes.list && \
   echo "**** Installing vscode stuff ***" && \
   wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg && \
   cp packages.microsoft.gpg /etc/apt/keyrings && \
@@ -33,7 +31,6 @@ RUN \
     pluma \
     tilix \
     terminator \
-    kubectl \
     code \
     xdg-utils && \
   dpkg -i /tmp/openlens.deb && \
