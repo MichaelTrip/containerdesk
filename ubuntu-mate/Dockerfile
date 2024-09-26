@@ -15,7 +15,7 @@ RUN curl -L https://github.com/MuhammedKalkan/OpenLens/releases/download/v6.5.2-
 RUN curl -L https://github.com/derailed/k9s/releases/download/v${K9S_VERSION}/k9s_Linux_${TARGETARCH}.tar.gz --output /tmp/k9s.tar.gz
 RUN curl -l https://storage.googleapis.com/kubernetes-release/release/v${KUBECTL_VERSION}/bin/linux/${TARGETARCH}/kubectl --output /usr/local/bin/kubectl && chmod +x /usr/local/bin/kubectl
 RUN curl -L https://github.com/getseabird/seabird/releases/download/v${SEABIRD_VERSION}/seabird_linux_${TARGETARCH}.tar.gz --output /tmp/seabird.tar.gz
-https://github.com/getseabird/seabird/releases/download/v0.5.1/seabird_linux_amd64.tar.gz
+
 
 RUN \
   echo "**** install packages ****" && \
