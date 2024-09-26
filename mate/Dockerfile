@@ -4,8 +4,8 @@ FROM ghcr.io/linuxserver/rdesktop:fedora-mate
 ARG BUILD_DATE
 ARG VERSION
 ARG TARGETARCH
-ARG SEABIRD_VERSION=v0.5.1
-
+ARG SEABIRD_VERSION=0.5.1
+ARG K9S_VERSION=0.32.5
 LABEL build_version="based on Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
 LABEL maintainer="Michael Trip"
 WORKDIR /tmp
@@ -18,8 +18,8 @@ RUN \
         esac \
         && curl -L https://github.com/MuhammedKalkan/OpenLens/releases/download/v6.5.2-366/OpenLens-6.5.2-366.${DOWNLOAD_ARCH}.rpm --output /tmp/openlens.rpm
 
-RUN curl -L https://github.com/derailed/k9s/releases/download/v0.27.4/k9s_Linux_${TARGETARCH}.tar.gz --output /tmp/k9s.tar.gz
-RUN curl -L https://github.com/getseabird/seabird/releases/download/${SEABIRD_VERSION}/seabird_linux_${TARGETARCH}.tar.gz --output /tmp/seabird.tar.gz
+RUN curl -L https://github.com/derailed/k9s/releases/download/v${K9S_VERSION}/k9s_Linux_${TARGETARCH}.tar.gz --output /tmp/k9s.tar.gz
+RUN curl -L https://github.com/getseabird/seabird/releases/download/v${SEABIRD_VERSION}/seabird_linux_${TARGETARCH}.tar.gz --output /tmp/seabird.tar.gz
 RUN \
   echo "**** install packages ****" && \
   rpm --import https://packages.microsoft.com/keys/microsoft.asc && \
