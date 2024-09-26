@@ -60,4 +60,3 @@ COPY /root /
 EXPOSE 3389
 VOLUME /home
 VOLUME /config
-
