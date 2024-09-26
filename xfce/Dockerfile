@@ -37,6 +37,9 @@ RUN \
     papirus-icon-theme \
     pop-gtk2-theme \
     pop-gtk3-theme \
+    gtksourceview5 \
+    libvterm \
+    vte291-gtk4 \
     thunderbird \
     firefox \
     code && \
