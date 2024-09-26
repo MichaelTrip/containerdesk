@@ -38,6 +38,8 @@ RUN \
     adwaita-gtk2-theme \
     adwaita-icon-theme \
     papirus-icon-theme \
+    pop-gtk2-theme \
+    pop-gtk3-theme \
     thunderbird \
     firefox \
     code && \
