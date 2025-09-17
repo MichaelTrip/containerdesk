@@ -6,7 +6,7 @@ ARG TARGETARCH
 ARG VERSION
 ARG KUBECTL_VERSION=1.30.2
 ARG HELM_VERSION=3.15.2
-ARG SEABIRD_VERSION=0.6.0
+ARG HEADLAMP_VERSION=0.35.0
 ARG K9S_VERSION=0.50.9
 ARG FREELENS_VERSION=1.5.3
 LABEL build_version="based on Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
@@ -28,7 +28,7 @@ RUN \
   curl -L https://storage.googleapis.com/kubernetes-release/release/v${KUBECTL_VERSION}/bin/linux/${TARGETARCH}/kubectl -o /usr/local/bin/kubectl && \
   chmod +x /usr/local/bin/kubectl && \
   curl -L https://get.helm.sh/helm-v${HELM_VERSION}-linux-${TARGETARCH}.tar.gz -o /tmp/helm.tar.gz && \
-  curl -L https://github.com/getseabird/seabird/releases/download/v${SEABIRD_VERSION}/seabird_linux_${TARGETARCH}.tar.gz -o /tmp/seabird.tar.gz && \
+  curl -L https://github.com/kubernetes-sigs/headlamp/releases/download/v${HEADLAMP_VERSION}/headlamp_${HEADLAMP_VERSION}-1_${TARGETARCH}.deb -o /tmp/headlamp.deb && \
   echo "**** Setup VS Code repository ****" && \
   wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg && \
   cp packages.microsoft.gpg /etc/apt/keyrings && \
@@ -55,12 +55,11 @@ RUN \
     code && \
   echo "**** Install downloaded packages and extract tools ****" && \
   apt-get install -y /tmp/freelens.deb && \
+  apt-get install -y /tmp/headlamp.deb && \
   tar -zxvf /tmp/k9s.tar.gz && \
-  tar -zxvf /tmp/seabird.tar.gz && \
   tar -zxvf /tmp/helm.tar.gz && \
   mv linux-${TARGETARCH}/helm /usr/local/bin/helm && \
   mv /tmp/k9s /usr/local/bin && \
-  mv /tmp/seabird /usr/local/bin && \
   echo "**** MATE desktop tweaks ****" && \
   rm -f \
     /etc/xdg/autostart/mate-power-manager.desktop \
