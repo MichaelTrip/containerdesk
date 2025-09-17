@@ -69,8 +69,8 @@ jobs:
         id: build-and-push
         uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a
         with:
-          context: ./ubuntu-mate
-          file: ./ubuntu-mate/Dockerfile
+          context: ./ubuntu-xfce
+          file: ./ubuntu-xfce/Dockerfile
           platforms: linux/amd64
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
