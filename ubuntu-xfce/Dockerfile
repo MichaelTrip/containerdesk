@@ -1,4 +1,4 @@
-FROM ghcr.io/linuxserver/rdesktop:ubuntu-mate
+FROM ghcr.io/linuxserver/rdesktop:ubuntu-xfce
 # set version label
 ARG BUILD_DATE
 # ARG BUILDARCH
@@ -25,41 +25,36 @@ RUN curl -L https://get.helm.sh/helm-v${HELM_VERSION}-linux-${TARGETARCH}.tar.gz
 RUN curl -L https://github.com/getseabird/seabird/releases/download/v${SEABIRD_VERSION}/seabird_linux_${TARGETARCH}.tar.gz --output /tmp/seabird.tar.gz
 
 
-RUN \
-  echo "**** install packages ****" && \
-  apt update && \
-  DEBIAN_FRONTEND=noninteractive apt-get install wget -y && \
-  echo "**** Installing vscode stuff ***" && \
-  wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg && \
-  cp packages.microsoft.gpg /etc/apt/keyrings && \
-  echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list && \
-  DEBIAN_FRONTEND=noninteractive apt-get install apt-transport-https -y &&\
-  apt-get update && \
-  DEBIAN_FRONTEND=noninteractive \
-  apt-get install --no-install-recommends -y \
-    vim \
-    neofetch \
-    libreoffice \
-    thunderbird \
-    pluma \
-    tilix \
-    terminator \
-    code \
-    mate-themes \
-    xdg-utils && \
-  apt-get install -y /tmp/freelens.deb && \
-  tar -zxvf /tmp/k9s.tar.gz && \
-  tar -zxvf /tmp/seabird.tar.gz && \
-  tar -zxvf /tmp/helm.tar.gz && \
-  mv linux-${TARGETARCH}/helm /usr/local/bin/helm && \
-  mv /tmp/k9s /usr/local/bin && \
-  mv /tmp/seabird /usr/local/bin && \
-  echo "**** cleanup ****" && \
-  apt-get autoclean && \
-  rm -rf \
-    /var/lib/apt/lists/* \
-    /var/tmp/* \
-    /tmp/*
+RUN echo "**** install packages ****"
+RUN apt update
+RUN DEBIAN_FRONTEND=noninteractive apt-get install wget -y
+RUN echo "**** Installing vscode stuff ***"
+RUN wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
+RUN cp packages.microsoft.gpg /etc/apt/keyrings
+RUN echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list
+RUN DEBIAN_FRONTEND=noninteractive apt-get install apt-transport-https -y
+RUN apt-get update
+RUN DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
+  vim \
+  neofetch \
+  libreoffice \
+  thunderbird \
+  pluma \
+  tilix \
+  terminator \
+  code \
+#  xfce4-themes
+  xdg-utils
+RUN apt-get install -y /tmp/freelens.deb
+RUN tar -zxvf /tmp/k9s.tar.gz
+RUN tar -zxvf /tmp/seabird.tar.gz
+RUN tar -zxvf /tmp/helm.tar.gz
+RUN mv linux-${TARGETARCH}/helm /usr/local/bin/helm
+RUN mv /tmp/k9s /usr/local/bin
+RUN mv /tmp/seabird /usr/local/bin
+RUN echo "**** cleanup ****"
+RUN apt-get autoclean
+RUN rm -rf /var/lib/apt/lists/* /var/tmp/* /tmp/*
 
 COPY /root /
 
