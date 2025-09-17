@@ -11,7 +11,7 @@ on:
   push:
     branches: [ "main" ]
     paths:
-      - "ubuntu-mate/Dockerfile"
+      - "debian-mate/Dockerfile"
       - ".github/workflows/ubuntu-mate-build.yml"
     # Publish semver tags as releases.
     tags: [ 'v*.*.*' ]
@@ -22,7 +22,7 @@ env:
   # Use docker.io for Docker Hub if empty
   REGISTRY: ghcr.io
   # github.repository as <account>/<repo>
-  IMAGE_NAME: ${{ github.repository }}/containerdesk-ubuntu-mate
+  IMAGE_NAME: ${{ github.repository }}/containerdesk-debian-mate
 
 
 jobs:
@@ -69,8 +69,8 @@ jobs:
         id: build-and-push
         uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a
         with:
-          context: ./ubuntu-mate
-          file: ./ubuntu-mate/Dockerfile
+          context: ./debian-mate
+          file: ./debian-mate/Dockerfile
           platforms: linux/amd64
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
@@ -78,11 +78,3 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-  keepalive-job:
-    name: Keepalive Workflow
-    runs-on: ubuntu-latest
-    permissions:
-      actions: write
-    steps:
-      - uses: actions/checkout@v4
-      - uses: liskin/gh-workflow-keepalive@v1
