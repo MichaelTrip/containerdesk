@@ -52,6 +52,8 @@ RUN \
     libreoffice-impress \
     libreoffice-draw \
     thunderbird \
+    gnome-themes-extra \
+    gnome-themes-extra-data \
     code && \
   echo "**** Install downloaded packages and extract tools ****" && \
   apt-get install -y /tmp/freelens.deb && \
