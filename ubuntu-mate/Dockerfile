@@ -17,7 +17,7 @@ WORKDIR /tmp
 RUN \
   echo "**** Update package lists and install base tools ****" && \
   DEBIAN_FRONTEND=noninteractive apt-get update && \
-  DEBIAN_FRONTEND=noninteractive apt-get install -y curl wget gnupg2 ca-certificates apt-transport-https && \
+  DEBIAN_FRONTEND=noninteractive apt-get install -y curl wget gnupg2 ca-certificates apt-transport-https software-properties-common && \
   echo "**** Download external packages ****" && \
   case ${TARGETARCH} in \
     "amd64")  DOWNLOAD_ARCH=linux-amd64  ;; \
@@ -33,14 +33,15 @@ RUN \
   wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg && \
   cp packages.microsoft.gpg /etc/apt/keyrings && \
   echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list && \
+  add-apt-repository ppa:xtradeb/apps -y
   apt-get update && \
   echo "**** Install all packages ****" && \
   mkdir -p /usr/share/man/man1 && \
   DEBIAN_FRONTEND=noninteractive apt-get install -y \
     vim \
     neofetch \
-    chromium \
     pluma \
+    chromium \
     tilix \
     xdg-utils \
     man-db \
