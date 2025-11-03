@@ -17,7 +17,7 @@ WORKDIR /tmp
 RUN \
   echo "**** Update package lists and install base tools ****" && \
   DEBIAN_FRONTEND=noninteractive apt-get update && \
-  DEBIAN_FRONTEND=noninteractive apt-get install -y curl wget gnupg2 ca-certificates apt-transport-https software-properties-common && \
+  DEBIAN_FRONTEND=noninteractive apt-get install -y curl wget gnupg2 ca-certificates apt-transport-https && \
   echo "**** Download external packages ****" && \
   case ${TARGETARCH} in \
     "amd64")  DOWNLOAD_ARCH=linux-amd64  ;; \
