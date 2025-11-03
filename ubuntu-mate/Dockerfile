@@ -9,6 +9,9 @@ ARG HELM_VERSION=3.15.2
 ARG HEADLAMP_VERSION=0.37.0
 ARG K9S_VERSION=0.50.16
 ARG FREELENS_VERSION=1.6.1
+ARG KUBECM_VERSION=0.27.1
+ARG KUBECTX_VERSION=0.9.5
+
 LABEL build_version="based on Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
 LABEL maintainer="Michael Trip"
 WORKDIR /tmp
@@ -27,6 +30,9 @@ RUN set -eux; \
   curl -L "https://github.com/freelensapp/freelens/releases/download/v${FREELENS_VERSION}/Freelens-${FREELENS_VERSION}-${DOWNLOAD_ARCH}.deb" -o /tmp/freelens.deb; \
   curl -L "https://github.com/derailed/k9s/releases/download/v${K9S_VERSION}/k9s_Linux_${TARGETARCH}.tar.gz" -o /tmp/k9s.tar.gz; \
   curl -L "https://dl.k8s.io/release/v${KUBECTL_VERSION}/bin/linux/${TARGETARCH}/kubectl" -o /usr/local/bin/kubectl; \
+  curl -L "https://github.com/sunny0826/kubecm/releases/download/v${KUBECM_VERSION}/kubecm_v${KUBECM_VERSION}_Linux_x86_64.tar.gz" -o /tmp/kubecm.tar.gz; \
+  curl -L "https://github.com/ahmetb/kubectx/releases/download/v${KUBECTX_VERSION}/kubectx" -o /usr/local/bin/kubectx; \
+  chmod +x /usr/local/bin/kubectx; \
   chmod +x /usr/local/bin/kubectl; \
   curl -L "https://get.helm.sh/helm-v${HELM_VERSION}-linux-${TARGETARCH}.tar.gz" -o /tmp/helm.tar.gz; \
   curl -L "https://github.com/kubernetes-sigs/headlamp/releases/download/v${HEADLAMP_VERSION}/headlamp_${HEADLAMP_VERSION}-1_${TARGETARCH}.deb" -o /tmp/headlamp.deb; \
@@ -47,6 +53,8 @@ RUN set -eux; \
   DEBIAN_FRONTEND=noninteractive apt-get install -y /tmp/freelens.deb /tmp/headlamp.deb; \
   tar -C /tmp -zxvf /tmp/k9s.tar.gz; \
   tar -C /tmp -zxvf /tmp/helm.tar.gz; \
+  tar -C /tmp -zxvf /tmp/kubecm.tar.gz; \
+  mv /tmp/kubecm /usr/local/bin/kubecm; \
   mv /tmp/linux-${TARGETARCH}/helm /usr/local/bin/helm; \
   # when k9s tarball extracts a binary in /tmp or a subdir, move it to /usr/local/bin
   if [ -f /tmp/k9s ]; then mv /tmp/k9s /usr/local/bin/; else mv /tmp/*k9s* /usr/local/bin/ || true; fi; \
