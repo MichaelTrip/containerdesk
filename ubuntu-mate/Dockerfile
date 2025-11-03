@@ -25,7 +25,7 @@ RUN \
   esac && \
   curl -L https://github.com/freelensapp/freelens/releases/download/v${FREELENS_VERSION}/Freelens-${FREELENS_VERSION}-${DOWNLOAD_ARCH}.deb -o /tmp/freelens.deb && \
   curl -L https://github.com/derailed/k9s/releases/download/v${K9S_VERSION}/k9s_Linux_${TARGETARCH}.tar.gz -o /tmp/k9s.tar.gz && \
-  curl -L https://storage.googleapis.com/kubernetes-release/release/v${KUBECTL_VERSION}/bin/linux/${TARGETARCH}/kubectl -o /usr/local/bin/kubectl && \
+  curl -L curl -LO https://dl.k8s.io/release/v${KUBECTL_VERSION}/bin/linux/${TARGETARCH}/kubectl -o /usr/local/bin/kubectl && \
   chmod +x /usr/local/bin/kubectl && \
   curl -L https://get.helm.sh/helm-v${HELM_VERSION}-linux-${TARGETARCH}.tar.gz -o /tmp/helm.tar.gz && \
   curl -L https://github.com/kubernetes-sigs/headlamp/releases/download/v${HEADLAMP_VERSION}/headlamp_${HEADLAMP_VERSION}-1_${TARGETARCH}.deb -o /tmp/headlamp.deb && \
