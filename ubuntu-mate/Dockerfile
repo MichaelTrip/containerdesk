@@ -15,6 +15,7 @@ ARG KUBECTX_VERSION=0.9.5
 LABEL build_version="based on Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
 LABEL maintainer="Michael Trip"
 WORKDIR /tmp
+COPY /root /
 # USER root
 # Download all packages and install everything in one layer
 RUN set -eux; \
@@ -42,6 +43,7 @@ RUN set -eux; \
   cp /tmp/packages.microsoft.gpg /etc/apt/keyrings/; \
   echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list; \
   add-apt-repository ppa:xtradeb/apps -y; \
+  add-apt-repository ppa:mozillateam/ppa -y; \
   echo "**** Apt update and install packages ****"; \
   DEBIAN_FRONTEND=noninteractive apt-get update; \
   mkdir -p /usr/share/man/man1; \
@@ -61,9 +63,6 @@ RUN set -eux; \
   echo "**** Cleanup ****"; \
   apt-get --yes autoremove; apt-get -y autoclean; \
   rm -rf /var/lib/apt/lists/* /var/tmp/* /tmp/*
-
-
-COPY /root /
 
 # ports and volumes
 EXPOSE 3389
