@@ -48,7 +48,7 @@ RUN set -eux; \
   DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
     vim neofetch pluma chromium chromium-sandbox tilix xdg-utils man-db default-jre-headless openjdk-17-jre-headless \
     libreoffice-writer libreoffice-calc libreoffice-impress libreoffice-draw thunderbird gnome-themes-extra \
-    gnome-themes-extra-data code; \
+    gnome-themes-extra-data code thunderbird; \
   echo "**** Install downloaded packages and extract tools ****"; \
   DEBIAN_FRONTEND=noninteractive apt-get install -y /tmp/freelens.deb /tmp/headlamp.deb; \
   tar -C /tmp -zxvf /tmp/k9s.tar.gz; \
